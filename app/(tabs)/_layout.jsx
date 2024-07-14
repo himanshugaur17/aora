@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { Image, Text, View } from "react-native";
 import icons from "../../constants/icons";
+import { StatusBar } from "expo-status-bar";
 const tabBarIcon = (focused, color, size, name) => {
   let iconName = name;
   if (name == "create") iconName = "plus";
@@ -20,6 +21,7 @@ const tabBarIcon = (focused, color, size, name) => {
 };
 const AppTabLayout = () => {
   return (
+    <>
     <Tabs screenOptions={{ tabBarShowLabel: false }}>
       <Tabs.Screen
         name="index"
@@ -54,6 +56,8 @@ const AppTabLayout = () => {
         }}
       />
     </Tabs>
+          <StatusBar backgroundColor="#161622" barStyle="light-content" />
+          </>
   );
 };
 

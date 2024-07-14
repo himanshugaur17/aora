@@ -1,12 +1,14 @@
+import { router } from "expo-router";
 import React from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../components/customButton";
 import { images } from "../constants";
 const HomePage = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className="w-full  h-full items-center bg-green-200 px-4">
+        <View className="w-full  min-h-[85vh] items-center px-4">
           <Image
             source={images.logo}
             resizeMode="contain"
@@ -23,6 +25,11 @@ const HomePage = () => {
               <Text className="text-secondary-200 font-serif">HivaTech</Text>
             </Text>
           </View>
+          <CustomButton
+            text="Continue with your email"
+            touchableStyle="mt-2"
+            onPressHandler={() => router.push("sign-in")}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
