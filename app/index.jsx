@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View className="w-full  min-h-[85vh] items-center px-4">
+        <View className="w-full mt-5 min-h-[85vh] items-center px-4">
           <Image
             source={images.logo}
             resizeMode="contain"
