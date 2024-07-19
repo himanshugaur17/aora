@@ -23,6 +23,7 @@ const SignUp = () => {
         },
         (reason) => {
           console.log("account creation failed: " + reason);
+          alert("account creation failed: " + reason);
         }
       );
   };
