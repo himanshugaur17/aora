@@ -5,6 +5,7 @@ import { Image, Text, View } from "react-native";
 import icons from "../../constants/icons";
 const tabBarIcon = (focused, color, size, name) => {
   let iconName = name;
+  
   if (name == "create") iconName = "plus";
   return (
     <View className="items-center gap-1">
