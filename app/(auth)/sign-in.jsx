@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/customButton";
 import FormField from "../../components/formField";
 import { images } from "../../constants";
+
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const signInSubmit = (event) => Alert.alert(JSON.stringify(form));
