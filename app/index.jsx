@@ -28,7 +28,7 @@ const HomePage = () => {
           <CustomButton
             text="Continue with your email"
             touchableStyle="mt-2"
-            onPressHandler={() => router.push("sign-in")}
+            onPressHandler={() => router.push("/(tabs)")}
           />
         </View>
       </ScrollView>

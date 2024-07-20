@@ -4,7 +4,6 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { StatusBar } from "react-native";
-import AoraContextProvider from "../context/aoraContext";
 SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
   const [loaded, error] = useFonts({
@@ -26,12 +25,12 @@ const RootLayout = () => {
   if (!loaded) return null;
   if (!loaded && !error) return null;
   return (
-    <AoraContextProvider>
+    <>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
       <StatusBar backgroundColor="#161622" barStyle="light-content" />
-    </AoraContextProvider>
+    </>
   );
 };
 

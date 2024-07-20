@@ -1,6 +1,7 @@
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
+import { ID } from "react-native-appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/customButton";
 import FormField from "../../components/formField";
@@ -19,7 +20,7 @@ const SignUp = () => {
     } else {
       try {
         const userAcc = await createUserAccount(
-          form.username,
+          ID.unique(),
           form.email,
           form.password
         );
@@ -28,6 +29,7 @@ const SignUp = () => {
         router.replace("/(tabs)");
       } catch (error) {
         console.error(`something went wrong while sign up: ${error}`);
+        router.replace("/");
       }
     }
   };

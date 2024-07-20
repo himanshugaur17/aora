@@ -31,3 +31,4 @@ export default AoraContextProvider = ({ children }) => {
     />
   );
 };
+export { AoraContext };
