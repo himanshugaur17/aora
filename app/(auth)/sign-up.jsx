@@ -5,27 +5,31 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/customButton";
 import FormField from "../../components/formField";
 import { images } from "../../constants";
-import { createUserAccount, createUserSession } from "../../lib/appWrite";
+import {
+  createUserAccount,
+  createUserInDatabase,
+  createUserSession,
+} from "../../lib/appWrite";
 const SignUp = () => {
   const [form, setForm] = useState({ email: "", password: "", username: "" });
 
-  const signUpSubmit = () => {
-    if (!form.email || !form.password || !form.username)
+  const signUpSubmit = async () => {
+    if (!form.email || !form.password || !form.username) {
       alert("Please fill the details correctly");
-    else
-      createUserAccount(form.username, form.email, form.password).then(
-        (response) => {
-          console.log("account creation success: " + response);
-          createUserSession(form.email, form.password).then((response) => {
-            console.log("successful session creation");
-            router.replace("/(tabs)");
-          });
-        },
-        (reason) => {
-          console.log("account creation failed: " + reason);
-          alert("account creation failed: " + reason);
-        }
-      );
+    } else {
+      try {
+        const userAcc = await createUserAccount(
+          form.username,
+          form.email,
+          form.password
+        );
+        await createUserSession(form.email, form.password);
+        await createUserInDatabase(userAcc.$id, form.email, form.username);
+        router.replace("/(tabs)");
+      } catch (error) {
+        console.error(`something went wrong while sign up: ${error}`);
+      }
+    }
   };
   return (
     <SafeAreaView className="bg-primary h-full">

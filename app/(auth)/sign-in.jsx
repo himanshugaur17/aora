@@ -1,14 +1,25 @@
 import { Link } from "expo-router";
 import React, { useState } from "react";
-import { Alert, Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/customButton";
 import FormField from "../../components/formField";
 import { images } from "../../constants";
-
+import { createUserSession } from "../../lib/appWrite";
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
-  const signInSubmit = (event) => Alert.alert(JSON.stringify(form));
+  const signInSubmit = () => {
+    if (!form.email || !form.password)
+      alert("Please fill the details correctly");
+    else
+      createUserSession(form.email, form.password).then(
+        (response) => {
+          console.log("successful session creation");
+          router.replace("/(tabs)");
+        },
+        (error) => alert(`sign-in failed: ${error}`)
+      );
+  };
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
