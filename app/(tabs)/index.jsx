@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
 import SearchInput from "../../components/searchInput";
 import { images } from "../../constants";
+import { getPosts, useAppWrite } from "../../lib/appWrite";
 const dummyData = [
   { id: "Video 1", key: 1 },
   { id: "Video 2", key: 2 },
@@ -29,14 +30,18 @@ const listHeader = (username) => (
 );
 const Index = () => {
   const username = "Himanshu Gaur";
+  const { data: posts, isLoading } = useAppWrite(getPosts);
+  console.log(posts);
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
         ListHeaderComponent={listHeader("Himanshu")}
-        keyExtractor={(item) => item.id}
-        data={dummyData}
+        keyExtractor={(item) => item.$id}
+        data={posts}
         renderItem={({ item }) => (
-          <Text className="text-white font-pregular text-2xl">{item.id}</Text>
+          <Text className="text-white font-pregular text-2xl">
+            {item.title}
+          </Text>
         )}
       />
     </SafeAreaView>
