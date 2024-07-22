@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, Image, SafeAreaView, Text, View } from "react-native";
 import SearchInput from "../../components/searchInput";
+import VideoCard from "../../components/videoCard";
 import { images } from "../../constants";
 import { getPosts, useAppWrite } from "../../lib/appWrite";
 const dummyData = [
@@ -31,18 +32,14 @@ const listHeader = (username) => (
 const Index = () => {
   const username = "Himanshu Gaur";
   const { data: posts, isLoading } = useAppWrite(getPosts);
-  console.log(posts);
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
+        scrollEnabled={true}
         ListHeaderComponent={listHeader("Himanshu")}
-        keyExtractor={(item) => item.$id}
+        keyExtractor={(post) => post.$id}
         data={posts}
-        renderItem={({ item }) => (
-          <Text className="text-white font-pregular text-2xl">
-            {item.title}
-          </Text>
-        )}
+        renderItem={({ item }) => <VideoCard post={item} />}
       />
     </SafeAreaView>
   );
