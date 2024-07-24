@@ -1,3 +1,4 @@
+import { ResizeMode, Video } from "expo-av";
 import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { icons } from "../constants";
@@ -33,10 +34,24 @@ const VideoCard = ({
 
       <TouchableOpacity
         className="flex-1 h-60 rounded-2xl ml-3 items-center justify-center"
-        onPress={() => setPlay(!play)}
+        onPress={() => setPlay(true)}
       >
         {play ? (
-          <Text className="text-white text-xm">Click to pause</Text>
+          <Video
+            className="w-full h-60 rounded-2xl"
+            source={{
+              uri: "https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+            }}
+            useNativeControls
+            resizeMode={ResizeMode.CONTAIN}
+            shouldPlay={true}
+            onError={(error) => {
+              console.error("Video Error:", error);
+            }}
+            onPlaybackStatusUpdate={(status) =>
+              status.didJustFinish ? setPlay(false) : setPlay(true)
+            }
+          />
         ) : (
           <>
             <Image
