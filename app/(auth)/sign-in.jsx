@@ -1,20 +1,24 @@
 import { Link } from "expo-router";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/customButton";
 import FormField from "../../components/formField";
 import { images } from "../../constants";
-import { createUserSession } from "../../lib/appWrite";
+import UserContext from "../../context/UserContext";
+import { createUserSession, getCurrentUser } from "../../lib/appWrite";
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
+  const { setUser } = useContext(UserContext);
   const signInSubmit = () => {
     if (!form.email || !form.password)
       alert("Please fill the details correctly");
     else
       createUserSession(form.email, form.password).then(
-        (response) => {
+        async (response) => {
           console.log("successful session creation");
+          const user = await getCurrentUser();
+          setUser(user);
           router.replace("/(tabs)");
         },
         (error) => alert(`sign-in failed: ${error}`)

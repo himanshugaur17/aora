@@ -1,11 +1,12 @@
 import { Link, router } from "expo-router";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { ID } from "react-native-appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../../components/customButton";
 import FormField from "../../components/formField";
 import { images } from "../../constants";
+import UserContext from "../../context/UserContext";
 import {
   createUserAccount,
   createUserInDatabase,
@@ -13,7 +14,7 @@ import {
 } from "../../lib/appWrite";
 const SignUp = () => {
   const [form, setForm] = useState({ email: "", password: "", username: "" });
-
+  const { setUser } = useContext(UserContext);
   const signUpSubmit = async () => {
     if (!form.email || !form.password || !form.username) {
       alert("Please fill the details correctly");
@@ -25,7 +26,12 @@ const SignUp = () => {
           form.password
         );
         await createUserSession(form.email, form.password);
-        await createUserInDatabase(userAcc.$id, form.email, form.username);
+        const user = await createUserInDatabase(
+          userAcc.$id,
+          form.email,
+          form.username
+        );
+        setUser(user);
         router.replace("/(tabs)");
       } catch (error) {
         console.error(`something went wrong while sign up: ${error}`);

@@ -1,10 +1,15 @@
 import { router } from "expo-router";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../components/customButton";
 import { images } from "../constants";
+import UserContext from "../context/UserContext";
 const HomePage = () => {
+  const { user, isLoadingUserInfo } = useContext(UserContext);
+  useEffect(() => {
+    if (user) router.replace("/(tabs)");
+  }, [isLoadingUserInfo]);
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
@@ -28,7 +33,7 @@ const HomePage = () => {
           <CustomButton
             text="Continue with your email"
             touchableStyle="mt-2"
-            onPressHandler={() => router.push("/(tabs)")}
+            onPressHandler={() => router.push("/(auth)/sign-up")}
           />
         </View>
       </ScrollView>
